@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "322359519946",
+    "project_id": "onlinechat-21970",
+    "storage_bucket": "onlinechat-21970.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:322359519946:android:3f9e3928a7472125c2e233",
+        "android_client_info": {
+          "package_name": "com.hafizramiz.online_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "322359519946-pme3p47oplgi01155sh25uqpainbhr2n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hafizramiz.online_chat",
+            "certificate_hash": "5d3942346da8aa40ded19019abddbeeb1e27d597"
+          }
+        },
+        {
+          "client_id": "322359519946-2kvv9b89hkeschsbpacgb2tasqt87cr9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeLBIqCkhb2HT4EW6L6b5ItG3jTX8UXtk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "322359519946-2kvv9b89hkeschsbpacgb2tasqt87cr9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "322359519946-o8mk2703c336skc9bg76pq8o6vb9m2h5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hafizramiz.onlineChat"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
