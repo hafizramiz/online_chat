@@ -1,19 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:online_chat/helpers/exit_app_helper.dart';
 import 'package:online_chat/pages/write_message_page.dart';
 import 'package:provider/provider.dart';
 import '../model/m_user.dart';
 import '../view_model/view_model.dart';
 
-class HomeTabPage extends StatefulWidget {
-  const HomeTabPage({Key? key}) : super(key: key);
+class PeopleTabPage extends StatefulWidget {
+  const PeopleTabPage({Key? key}) : super(key: key);
 
   @override
-  State<HomeTabPage> createState() => _HomeTabPageState();
+  State<PeopleTabPage> createState() => _PeopleTabPageState();
 }
 
-class _HomeTabPageState extends State<HomeTabPage> {
+class _PeopleTabPageState extends State<PeopleTabPage> {
   late MUser currentUser;
+
   @override
   void initState() {
     currentUser =
@@ -25,13 +27,22 @@ class _HomeTabPageState extends State<HomeTabPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Home'),
+          title: Text('People'),
           actions: [
             TextButton(
                 onPressed: () async {
-                  await Provider.of<ViewModel>(context, listen: false)
-                      .signOut();
-                  print("cikis yapildi");
+                  final logout = await ExitAppHelper.exitApp(context);
+                  print("logout degeri : ${logout}");
+                  if (logout == true) {
+                    try {
+                      await Provider.of<ViewModel>(context, listen: false)
+                          .signOut;
+                      Navigator.of(context, rootNavigator: true)
+                          .popUntil(ModalRoute.withName("/loginPage"));
+                    } catch (error) {
+                      print("hata: ${error}");
+                    }
+                  }
                 },
                 child: Text(
                   "Cikis",
@@ -39,7 +50,7 @@ class _HomeTabPageState extends State<HomeTabPage> {
                 ))
           ],
         ),
-        body: StreamBuilder(
+        body: StreamBuilder<QuerySnapshot>(
             stream:
                 Provider.of<ViewModel>(context, listen: false).getAllUsers(),
             builder:
@@ -84,8 +95,10 @@ class _HomeTabPageState extends State<HomeTabPage> {
                                         )));
                           },
                           title: Text("${allUserList[index].displayName}"),
+                          trailing: Icon(Icons.chevron_right),
                           leading:
                               Image.network("${allUserList[index].photoUrl}"),
+
                         );
                       });
                 }

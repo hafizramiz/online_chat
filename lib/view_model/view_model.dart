@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:online_chat/model/chat.dart';
 import 'package:online_chat/services/auth_service.dart';
 import '../helpers/create_muser_object.dart';
 import '../model/m_user.dart';
@@ -111,7 +112,7 @@ class ViewModel with ChangeNotifier {
       User? user = await _authService.signInWithGoogle();
       if (user != null) {
         createdGoogleUser = CreateMUser.createMUserObject(
-          //,user.displayName, user.metadata.creationTime,user.photoURL
+            //,user.displayName, user.metadata.creationTime,user.photoURL
             AuthState.SUCCESFULL,
             user.uid,
             user.email,
@@ -126,6 +127,7 @@ class ViewModel with ChangeNotifier {
       }
     } catch (error) {
       createdGoogleUser = CreateMUser.createMUserObject(AuthState.ERROR, null);
+      print("google giriste hata: ${error}");
     } finally {
       state = ViewState.IDLE;
     }
@@ -169,26 +171,50 @@ class ViewModel with ChangeNotifier {
       return getUser;
     } else {
       MUser errorUser =
-      CreateMUser.createMUserObject(AuthState.ERROR, null, null);
+          CreateMUser.createMUserObject(AuthState.ERROR, null, null);
       return errorUser;
     }
   }
+
+  Future<List<Chat>>getAllChat()async {
+    MUser currentUser = getCurrentUser();
+    QuerySnapshot<Map<String, dynamic>> querySnapshot=await _firestoreService.getAllChat(sessionOwnerId: currentUser.userId!);
+    // burada modele cevirip arayuze vercem.
+    List<DocumentSnapshot<Map<String, dynamic>>> documentSnapList=querySnapshot.docs!;
+    List<Chat>chatList=documentSnapList.map((DocumentSnapshot document) {
+      Map<String,dynamic>json=document.data() as Map<String, dynamic>;
+      Chat chat=Chat.fromJson(json);
+      return chat;
+    }).toList();
+    return chatList;
+  }
+
 
   Stream<QuerySnapshot> getAllUsers() {
     final Stream<QuerySnapshot> _usersStream = _firestoreService.getAllUsers();
     return _usersStream;
   }
 
-  // Stream<QuerySnapshot> getAllMessages() {
-  //   final Stream<QuerySnapshot> _usersStream = _firestoreService.getAllUsers();
-  //   return _usersStream;
-  // }
+  Stream<QuerySnapshot> getAllMessages(
+      {required MUser receiverUser, required MUser sessionOwner}) {
+    print("receiver user id: ${receiverUser.userId}");
+    final Stream<QuerySnapshot> _dialogStream = _firestoreService
+        .getAllMessages(sessionOwner: sessionOwner, receiverUser: receiverUser);
+    return _dialogStream;
+  }
 
   Future<void> addMessageToFirestore(
-      { required MUser receiverUser, required MUser sessionOwner}) async {
-    var message = Message(content: messageController.text);
+      {required MUser receiverUser, required MUser sessionOwner}) async {
+    var message = Message(
+        content: messageController.text,
+        createdTime: DateTime.now(),
+        fromMe: true);
     await _firestoreService.addMessageToFirestore(
-        receiverUser: receiverUser, sessionOwner: sessionOwner, message:message);
+        receiverUser: receiverUser,
+        sessionOwner: sessionOwner,
+        message: message);
   }
+
+
 
 }

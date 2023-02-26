@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:online_chat/helpers/alert_dialog_helper.dart';
 import 'package:online_chat/pages/home_page.dart';
+import 'package:online_chat/pages/home_page.dart';
 import 'package:online_chat/pages/signup_page.dart';
 import 'package:provider/provider.dart';
 import '../common_widget/text_form_widget.dart';
