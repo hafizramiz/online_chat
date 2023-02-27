@@ -90,6 +90,7 @@ class FirestoreService {
     /// Chat field kayit
     Chat chat = Chat(sessionOwnerId: sessionOwner.userId!,
         receiverUserId: receiverUser.userId!,
+        receiverDisplayName: receiverUser.displayName!,
         lastMessage: message.content,
         createdTime: message.createdTime,
         receiverPhotoUrl: receiverUser.photoUrl!);

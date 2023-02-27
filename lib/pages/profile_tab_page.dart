@@ -4,21 +4,7 @@ import 'package:online_chat/model/m_user.dart';
 import 'package:provider/provider.dart';
 import '../view_model/view_model.dart';
 
-class ProfileTabPage extends StatefulWidget {
-  @override
-  State<ProfileTabPage> createState() => _ProfileTabPageState();
-}
-
-class _ProfileTabPageState extends State<ProfileTabPage> {
-  late Future<MUser> futureMUser;
-
-  @override
-  void initState() {
-    futureMUser =
-        Provider.of<ViewModel>(context, listen: false).getUserWithDocumentId();
-    super.initState();
-  }
-
+class ProfileTabPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('Profile Tab Page build');
@@ -29,7 +15,7 @@ class _ProfileTabPageState extends State<ProfileTabPage> {
           actions: [IconButton(onPressed: () {}, icon: Icon(Icons.settings))],
         ),
         body: FutureBuilder<MUser>(
-          future: futureMUser,
+          future: Provider.of<ViewModel>(context, listen: false).getUserWithDocumentId(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               MUser getUser = snapshot.data as MUser;
@@ -79,6 +65,7 @@ class _ProfileTabPageState extends State<ProfileTabPage> {
                       onPressed: () {
                         /// yeni bilgileri alip burda set ederek guncelleyebilirim.
                         /// Daha sonra kullaniciya alert dialog goster guncelleme basarili diye
+
                       },
                       child: Text("Save"),
                     )
