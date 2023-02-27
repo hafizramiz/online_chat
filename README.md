@@ -4,7 +4,7 @@ A new Flutter project.
 
 ## Getting Started
 
-Service Locator: getit
-Singleton Design Pattern
+# Service Locator:
+# Singleton Design Pattern
 
 
