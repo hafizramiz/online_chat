@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:online_chat/pages/login_page.dart';
 import 'package:online_chat/pages/on_board_page.dart';
 import 'package:online_chat/pages/signup_page.dart';
-import 'package:online_chat/view_model/view_model.dart';
-import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -13,10 +11,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(
-    ChangeNotifierProvider<ViewModel>(
-      create: (context) => ViewModel(),
-      child: MyApp(),
-    ),
+    MyApp(),
   );
 }
 
@@ -25,11 +20,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: OnBoardPage(),
-    initialRoute:  "/loginPage",
-    routes: {
+    return MaterialApp(
+      home: OnBoardPage(),
+      initialRoute: "/loginPage",
+      routes: {
         "/loginPage": (context) => LoginPage(),
         "/signUpPAge": (context) => SignUpPage(),
-        },);
+      },
+    );
   }
 }

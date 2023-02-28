@@ -2,13 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:online_chat/helpers/exit_app_helper.dart';
 import 'package:online_chat/pages/write_message_page.dart';
+import 'package:online_chat/view_model/people_tab_page_view_model.dart';
 import 'package:provider/provider.dart';
 import '../model/m_user.dart';
-import '../view_model/view_model.dart';
 
 class PeopleTabPage extends StatefulWidget {
-  const PeopleTabPage({Key? key}) : super(key: key);
-
   @override
   State<PeopleTabPage> createState() => _PeopleTabPageState();
 }
@@ -18,11 +16,9 @@ class _PeopleTabPageState extends State<PeopleTabPage> {
 
   @override
   void initState() {
-    currentUser =
-        Provider.of<ViewModel>(context, listen: false).getCurrentUser();
+    currentUser=Provider.of<PeopleTabPageViewModel>(context,listen: false).getCurrentUser();
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +31,7 @@ class _PeopleTabPageState extends State<PeopleTabPage> {
                   print("logout degeri : ${logout}");
                   if (logout == true) {
                     try {
-                      await Provider.of<ViewModel>(context, listen: false)
+                      await Provider.of<PeopleTabPageViewModel>(context, listen: false)
                           .signOut;
                       Navigator.of(context, rootNavigator: true)
                           .popUntil(ModalRoute.withName("/loginPage"));
@@ -52,7 +48,7 @@ class _PeopleTabPageState extends State<PeopleTabPage> {
         ),
         body: StreamBuilder<QuerySnapshot>(
             stream:
-                Provider.of<ViewModel>(context, listen: false).getAllUsers(),
+            Provider.of<PeopleTabPageViewModel>(context, listen: false).getAllUsers(),
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.hasError) {
@@ -69,12 +65,11 @@ class _PeopleTabPageState extends State<PeopleTabPage> {
                 } else {
                   List<QueryDocumentSnapshot<Object?>> queryList =
                       snapshot.data!.docs;
-
                   List<MUser> allUserList = [];
                   late MUser sessionOwner;
                   for (DocumentSnapshot document in queryList) {
                     Map<String, dynamic> json =
-                        document.data() as Map<String, dynamic>;
+                    document.data() as Map<String, dynamic>;
                     MUser mUserItem = MUser.fromJson(json);
                     if (mUserItem.userId != currentUser.userId) {
                       allUserList.add(mUserItem);
@@ -89,15 +84,15 @@ class _PeopleTabPageState extends State<PeopleTabPage> {
                           onTap: () {
                             Navigator.of(context, rootNavigator: true)
                                 .push(MaterialPageRoute(
-                                    builder: (context) => WriteMessagePage(
-                                          receiverUser: allUserList[index],
-                                          sessionOwner: sessionOwner,
-                                        )));
+                                builder: (context) => WriteMessagePage(
+                                  receiverUser: allUserList[index],
+                                  sessionOwner: sessionOwner,
+                                )));
                           },
                           title: Text("${allUserList[index].displayName}"),
                           trailing: Icon(Icons.chevron_right),
                           leading:
-                              Image.network("${allUserList[index].photoUrl}"),
+                          Image.network("${allUserList[index].photoUrl}"),
 
                         );
                       });

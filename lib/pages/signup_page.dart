@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:online_chat/pages/home_page.dart';
 import 'package:online_chat/view_model/sign_up_page_view_model.dart';
 import 'package:provider/provider.dart';
 import '../helpers/alert_dialog_helper.dart';
 import '../model/m_user.dart';
-import '../view_model/view_model.dart';
 import 'login_page.dart';
 
 class SignUpPage extends StatelessWidget {
