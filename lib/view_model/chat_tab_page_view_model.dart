@@ -40,5 +40,4 @@ class ChatTabPageViewModel{
     }).toList();
     return chatList;
   }
-
 }

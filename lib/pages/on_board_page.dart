@@ -8,9 +8,16 @@ import 'login_page.dart';
 class OnBoardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Provider<OnBoardPageViewModel>(
-      create: (context)=>OnBoardPageViewModel(),builder: (BuildContext context, child){
-        return Scaffold(
+    final User? currentUser =
+        Provider.of<OnBoardPageViewModel>(context, listen: false).currentUser;
+    if (currentUser != null) {
+      return HomePage();
+    } else {
+      return LoginPage();
+    }
+  }
+}
+/* return Scaffold(
           body: StreamBuilder<User?>(
               stream: FirebaseAuth.instance.userChanges(),
               builder: (context, AsyncSnapshot userSnapshot) {
@@ -28,8 +35,4 @@ class OnBoardPage extends StatelessWidget {
                 }
               }),
         );
-    },
-
-    );
-  }
-}
+*/

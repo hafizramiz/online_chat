@@ -28,16 +28,11 @@ class AuthService {
   }
 
 
-  Future<bool> signOut() async {
-   try{
+  Future<void> signOut() async {
      print("Cikis yapiliyor");
-     GoogleSignIn _googleSignIn=GoogleSignIn();
-     _googleSignIn!=null?_googleSignIn.signOut():debugPrint("google sign in durumu: ${_googleSignIn.currentUser}");
      await _auth.signOut();
-     return true;
-   }catch (error){
-     return false;
-   }
+    // GoogleSignIn _googleSignIn=GoogleSignIn();
+     // _googleSignIn!=null?_googleSignIn.signOut():debugPrint("google sign in durumu: ${_googleSignIn.currentUser}");
   }
 
   Future<User?> signInWithEmailAndPassword(
