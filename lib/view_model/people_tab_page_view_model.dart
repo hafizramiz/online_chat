@@ -95,7 +95,6 @@ class PeopleTabPageViewModel with ChangeNotifier {
     return currentUser;
   }
 
-
   Future<MUser> getSessionOwner() async {
     MUser currentUser = getCurrentUser();
     if (currentUser.authState == AuthState.SUCCESFULL) {
