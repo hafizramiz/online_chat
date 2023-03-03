@@ -15,8 +15,8 @@ class ChatTabPage extends StatelessWidget {
               title: Text('Chats'),
             ),
             body: FutureBuilder<List<Chat>>(
-              future:
-              Provider.of<ChatTabPageViewModel>(context, listen: false).getAllChat(),
+              future: Provider.of<ChatTabPageViewModel>(context, listen: false)
+                  .getAllChat(),
               builder: (BuildContext context, snapshot) {
                 if (snapshot.hasError) {
                   return Text("Something went wrong");
@@ -42,7 +42,7 @@ class ChatTabPage extends StatelessWidget {
                               //     )));
                             },
                             title:
-                            Text("${chatList[index].receiverDisplayName}"),
+                                Text("${chatList[index].receiverDisplayName}"),
                             trailing: Icon(Icons.chevron_right),
                             leading: CircleAvatar(
                               backgroundImage: NetworkImage(
@@ -51,7 +51,13 @@ class ChatTabPage extends StatelessWidget {
                             subtitle: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(chatList[index].lastMessage),
+                                Row(
+                                  children: [
+                                    if(chatList[index].fromMe) Icon(Icons.call_made)
+                          else Icon(Icons.call_received),
+                                    Text(chatList[index].lastMessage),
+                                  ],
+                                ),
                                 Text(
                                     "${DateFormat.Hm().format(chatList[index].createdTime)}")
                               ],

@@ -4,9 +4,30 @@ import '../model/m_user.dart';
 import '../model/message.dart';
 import '../services/firestore_service.dart';
 
-class WriteMessageViewModel{
+class WriteMessageViewModel {
   FirestoreService _firestoreService = FirestoreService.firestoreService;
   TextEditingController messageController = TextEditingController();
+
+  Future<void> getInitialMessages(
+      {required MUser sessionOwner, required MUser receiverUser}) async {
+    List<QueryDocumentSnapshot<Object?>> a =
+        await _firestoreService.getInitialMessages(
+            sessionOwner: sessionOwner, receiverUser: receiverUser);
+  }
+
+
+
+
+
+
+
+  Future<void> getMoreMessages() async {}
+
+
+
+
+
+
 
   Stream<QuerySnapshot> getAllMessages(
       {required MUser receiverUser, required MUser sessionOwner}) {
