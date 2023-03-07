@@ -66,7 +66,11 @@ class _PeopleTabPageState extends State<PeopleTabPage> {
         actions: [
           TextButton(
               onPressed: () async {
+                /// Sign out yaparken bunu kullan:
+                /// Her ne kadar uygulamanin initial route'ni belirtmemis olsak bile Uygulamamiz varsayilan olarak
+                /// slash (/) ile aslar
                 await Provider.of<PeopleTabPageViewModel>(context,listen: false).signOut();
+                Navigator.of(context, rootNavigator: true).popUntil(ModalRoute.withName("/"));
                 // final logout = await ExitAppHelper.exitApp(context);
                 // print("logout degeri : ${logout}");
                 // if (logout == true) {
