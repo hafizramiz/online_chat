@@ -23,7 +23,6 @@ class LoginPageViewModel with ChangeNotifier{
   Future<MUser> signInWithEmailAndPassword() async {
     late MUser loggedUser;
     try {
-
       User? user = await _authService.signInWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
       if (user != null) {
@@ -48,4 +47,7 @@ class LoginPageViewModel with ChangeNotifier{
     }
     return loggedUser;
   }
+
+
+
 }

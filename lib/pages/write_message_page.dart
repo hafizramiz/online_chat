@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:online_chat/model/message.dart';
@@ -111,7 +112,7 @@ class WriteMessagePage extends StatelessWidget {
               ),
             ),
             IconButton(
-                onPressed: () {
+                onPressed: () async{
                   if (_formKey.currentState!.validate()) {
                     print("buraya girdi");
                     Provider.of<WriteMessageViewModel>(context, listen: false)
@@ -123,6 +124,9 @@ class WriteMessagePage extends StatelessWidget {
                   Provider.of<WriteMessageViewModel>(context, listen: false)
                       .messageController
                       .clear();
+                  //FirebaseMessaging.instance.requestPermission();
+                  final fcmToken = await FirebaseMessaging.instance.getToken();
+                  print("Elde edilen token bilgisi: $fcmToken");
                 },
                 icon: Icon(Icons.send))
           ],

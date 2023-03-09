@@ -15,19 +15,7 @@ class WriteMessageViewModel {
             sessionOwner: sessionOwner, receiverUser: receiverUser);
   }
 
-
-
-
-
-
-
   Future<void> getMoreMessages() async {}
-
-
-
-
-
-
 
   Stream<QuerySnapshot> getAllMessages(
       {required MUser receiverUser, required MUser sessionOwner}) {

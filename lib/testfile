@@ -1,0 +1,69 @@
+// Widget _buildBody(
+//     List<MUser> allUserList, MUser sessionOwner, PageStatus pageStatus) {
+//   switch (pageStatus) {
+//     case PageStatus.idle:
+//       return Container();
+//     case PageStatus.firstPageLoading:
+//       return Center(
+//         child: CircularProgressIndicator(),
+//       );
+//     case PageStatus.firstPageLoaded:
+//       return _buildListViewBuilder(allUserList, sessionOwner);
+//     case PageStatus.firstPageNoItemsFound:
+//       return Container();
+//     case PageStatus.newPageLoading:
+//       print("new page loading calisiyor");
+//       return Stack(
+//         children: [
+//           _buildListViewBuilder(allUserList, sessionOwner),
+//           Align(
+//               alignment: Alignment.bottomCenter,
+//               child: Center(child: CircularProgressIndicator())),
+//         ],
+//       );
+//     case PageStatus.newPageLoaded:
+//       print("new paged loaded");
+//       print("liste uzunlugu: ${allUserList.length}");
+//       return _buildListViewBuilder(allUserList, sessionOwner);
+//     case PageStatus.newPageNoItemsFound:
+//       return _buildListViewBuilder(allUserList, sessionOwner);
+//     case PageStatus.loadingError:
+//       return Container();
+//   }
+// }
+
+// Widget _buildListViewBuilder(List<MUser> allUserList, MUser sessionOwner) {
+//   return Column(
+//     children: [
+//       Expanded(
+//         child: ListView.builder(
+//           controller: _scrollController,
+//           itemCount: allUserList.length,
+//           itemBuilder: (context, index) {
+//             return Padding(
+//               padding: EdgeInsets.symmetric(vertical: 17),
+//               child: Card(
+//                 child: ListTile(
+//                   onTap: () {
+//                     Navigator.of(context, rootNavigator: true)
+//                         .push(MaterialPageRoute(
+//                             builder: (context) => WriteMessagePage(
+//                                   receiverUser: allUserList[index],
+//                                   sessionOwnerUserId: sessionOwner.userId!,
+//                                 )));
+//                   },
+//                   title: Text("${allUserList[index].displayName}"),
+//                   trailing: Icon(Icons.chevron_right),
+//                   leading: Image.network("${allUserList[index].photoUrl}"),
+//                 ),
+//               ),
+//             );
+//           },
+//         ),
+//       ),
+//       if (Provider.of<PeopleTabPageViewModel>(context).pageStatus ==
+//           PageStatus.newPageLoading)
+//         CircularProgressIndicator()
+//     ],
+//   );
+// }
