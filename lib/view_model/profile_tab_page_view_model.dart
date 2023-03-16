@@ -1,42 +1,62 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import '../helpers/create_muser_object.dart';
-import '../model/m_user.dart';
+
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
 import '../services/auth_service.dart';
-import '../services/firestore_service.dart';
-
-class ProfileTabPageViewModel{
+import 'dart:io';
+class ProfileTabPageViewModel {
   AuthService _authService = AuthService.authService;
-  FirestoreService _firestoreService = FirestoreService.firestoreService;
 
-  MUser getCurrentUser() {
-    MUser currentUser;
-    try {
-      User? user = _authService.currentUser();
-      if (user != null) {
-        currentUser = CreateMUser.createMUserObject(
-            AuthState.SUCCESFULL, user.uid, user.email);
-      } else {
-        currentUser =
-            CreateMUser.createMUserObject(AuthState.ERROR, null, null);
-      }
-    } catch (error) {
-      print("hata: $error");
-      currentUser = CreateMUser.createMUserObject(AuthState.ERROR, null, null);
+
+  final picker=ImagePicker();
+  XFile? _image;
+
+  XFile? get image => _image;
+Future<void> pickGaleryImage(BuildContext context)async{
+final pickedFile=await picker.pickImage(source: ImageSource.gallery,imageQuality: 100);
+if(pickedFile!=null){
+  _image=XFile(pickedFile.path);
+}
+}
+
+  Future<void> pickCameraImage(BuildContext context)async{
+    final pickedFile=await picker.pickImage(source: ImageSource.camera,imageQuality: 100);
+    if(pickedFile!=null){
+      _image=XFile(pickedFile.path);
     }
-    return currentUser;
   }
-  Future<MUser> getUserWithDocumentId() async {
-    MUser currentUser = getCurrentUser();
-    if (currentUser.authState == AuthState.SUCCESFULL) {
-      DocumentSnapshot<Map<String, dynamic>> snapshot = await _firestoreService
-          .getUserWithDocumentId(documentId: currentUser.userId!);
-      MUser getUser = MUser.fromJson(snapshot.data() as Map<String, dynamic>);
-      return getUser;
-    } else {
-      MUser errorUser =
-      CreateMUser.createMUserObject(AuthState.ERROR, null, null);
-      return errorUser;
-    }
+
+  Future<void> pickImage(BuildContext context)  {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Container(
+              height: 120,
+              child: Column(
+                children: [
+                  ListTile(
+                    onTap: () {
+                     pickCameraImage(context);
+                    },
+                    leading: Icon(Icons.camera),
+                    title: Text("Camera"),
+                  ),
+                  ListTile(
+                    onTap: () {
+                       pickGaleryImage(context);
+                    },
+                    leading: Icon(Icons.image),
+                    title: Text("Gallery"),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  Future<void> signOut() async {
+    await _authService.signOut();
   }
 }

@@ -7,9 +7,7 @@ import 'package:online_chat/view_model/profile_tab_page_view_model.dart';
 import 'package:provider/provider.dart';
 
 class ProfileTabPage extends StatelessWidget {
-  final MUser gelenSessionOwner;
 
-  ProfileTabPage({required this.gelenSessionOwner});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +26,7 @@ class ProfileTabPage extends StatelessWidget {
                     /// Her ne kadar uygulamanin initial route'ni belirtmemis olsak bile Uygulamamiz varsayilan olarak
                     /// slash (/) ile aslar
                     await Provider.of<GeneralPageViewModel>(context,
-                            listen: false)
+                        listen: false)
                         .signOut();
 
                     Navigator.of(context, rootNavigator: true)
@@ -84,8 +82,8 @@ class ProfileTabPage extends StatelessWidget {
                   subtitle: Text("${gelenSessionOwner.displayName}"),
                 ),
                 TextFormField(
-                    // controller: Provider.of<>(context),
-                    ),
+                  // controller: Provider.of<>(context),
+                ),
                 ListTile(
                   title: Text("E Mail Adress"),
                   subtitle: Text("${gelenSessionOwner.email}"),

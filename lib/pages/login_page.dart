@@ -1,9 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:online_chat/helpers/alert_dialog_helper.dart';
-import 'package:online_chat/pages/home_page.dart';
+import 'package:online_chat/pages/get_session_owner_page.dart';
 import 'package:online_chat/pages/signup_page.dart';
 import 'package:online_chat/view_model/login_page_view_model.dart';
 import 'package:provider/provider.dart';
@@ -22,8 +21,11 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
-    print("init state calisti");
     requestPermission();
+    /// Uygulama ilk bu sayfayla basliyor. Burda iken foreground moddadir ve burda Foreground mesajlari dinleyebilirim.
+    /// Ama main icinde de dinleyebilirim.Ve yahut baska sayfada.Ama tiklaninca spesifik sayfaya da gidebilmem gerek.
+    /// Login yapmamis kullanici nasil spesifik mesaja gonderebiliriz?
+    // FirebaseMessaging.onMessage.listen(NotificationService().showFlutterNotifications);
     super.initState();
   }
 
@@ -91,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                         .signInWithEmailAndPassword();
                     if (mUser.authState == AuthState.SUCCESFULL) {
                       await Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                          MaterialPageRoute(builder: (context) => GetSessionOwnerPage()));
                       Provider.of<LoginPageViewModel>(context, listen: false)
                           .isLoading = false;
                     } else if (mUser.authState == AuthState.ERROR) {

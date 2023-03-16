@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:online_chat/model/m_user.dart';
 import 'package:online_chat/pages/chat_tab_page.dart';
 import 'package:online_chat/pages/my_custom_nav_bar.dart';
 import 'package:online_chat/pages/people_tab_page.dart';
@@ -7,7 +8,8 @@ import 'package:online_chat/view_model/people_tab_page_view_model.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  MUser sessionOwner;
+   HomePage({required this.sessionOwner,Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -19,14 +21,14 @@ class _HomePageState extends State<HomePage> {
   Widget _buildPage(TabItem tabItem) {
     switch (tabItem) {
       case TabItem.Profile:
-        return ProfileTabPage();
+        return ProfileTabPage(gelenSessionOwner: widget.sessionOwner);
       case TabItem.People:
         return ChangeNotifierProvider(
           create: (context) => PeopleTabPageViewModel(),
-          child: PeopleTabPage(),
+          child: PeopleTabPage(gelenSessionOwner: widget.sessionOwner),
         );
       case TabItem.Chat:
-        return ChatTabPage();
+        return ChatTabPage(gelenSessionOwner: widget.sessionOwner,);
     }
   }
 

@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:online_chat/model/message.dart';
@@ -40,8 +39,9 @@ class WriteMessagePage extends StatelessWidget {
                 )),
           ),
           body: StreamBuilder<QuerySnapshot>(
-              stream: Provider.of<WriteMessageViewModel>(context).getAllMessages(
-                  receiverUser: receiverUser, sessionOwner: sessionOwner),
+              stream: Provider.of<WriteMessageViewModel>(context)
+                  .getAllMessages(
+                      receiverUser: receiverUser, sessionOwner: sessionOwner),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasError) {
@@ -59,9 +59,9 @@ class WriteMessagePage extends StatelessWidget {
                     List<QueryDocumentSnapshot<Object?>> queryList =
                         snapshot.data!.docs;
                     List<Message> messageList =
-                    queryList.map((DocumentSnapshot document) {
+                        queryList.map((DocumentSnapshot document) {
                       Map<String, dynamic> json =
-                      document.data() as Map<String, dynamic>;
+                          document.data() as Map<String, dynamic>;
                       Message message = Message.fromJson(json);
                       return message;
                     }).toList();
@@ -81,14 +81,14 @@ class WriteMessagePage extends StatelessWidget {
       children: [
         Flexible(
             child: ListView.builder(
-              shrinkWrap: true,
-              reverse: true,
-              controller: _controller,
-              itemCount: messageList.length,
-              itemBuilder: (BuildContext context, int index) {
-                return _showMessageWidget(currentMessage: messageList[index]);
-              },
-            )),
+          shrinkWrap: true,
+          reverse: true,
+          controller: _controller,
+          itemCount: messageList.length,
+          itemBuilder: (BuildContext context, int index) {
+            return _showMessageWidget(currentMessage: messageList[index]);
+          },
+        )),
         Row(
           children: [
             Form(
@@ -102,7 +102,8 @@ class WriteMessagePage extends StatelessWidget {
                     }
                     return null;
                   },
-                  controller: Provider.of<WriteMessageViewModel>(context).messageController,
+                  controller: Provider.of<WriteMessageViewModel>(context)
+                      .messageController,
                   decoration: InputDecoration(
                       hintText: "Mesaj yazin",
                       border: OutlineInputBorder(
@@ -112,21 +113,21 @@ class WriteMessagePage extends StatelessWidget {
               ),
             ),
             IconButton(
-                onPressed: () async{
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    print("buraya girdi");
-                    Provider.of<WriteMessageViewModel>(context, listen: false)
+                    await Provider.of<WriteMessageViewModel>(context, listen: false)
                         .addMessageToFirestore(
-                        receiverUser: receiverUser,
-                        sessionOwner: sessionOwner);
+                            receiverUser: receiverUser,
+                            sessionOwner: sessionOwner);
+
+                    /// Firebase kayittan sonra post yapicam.Yani send push Notitification
+                    await Provider.of<WriteMessageViewModel>(context, listen: false)
+                        .sendPushNotification(receivedUser: receiverUser,sessionOwner: sessionOwner);
                   }
                   _scrollDown();
                   Provider.of<WriteMessageViewModel>(context, listen: false)
                       .messageController
                       .clear();
-                  //FirebaseMessaging.instance.requestPermission();
-                  final fcmToken = await FirebaseMessaging.instance.getToken();
-                  print("Elde edilen token bilgisi: $fcmToken");
                 },
                 icon: Icon(Icons.send))
           ],

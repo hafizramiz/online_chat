@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:online_chat/pages/home_page.dart';
+import 'package:online_chat/pages/get_session_owner_page.dart';
 import 'package:online_chat/view_model/onboard_page_view_model.dart';
 import 'package:provider/provider.dart';
 import 'login_page.dart';
@@ -12,7 +11,7 @@ class OnBoardPage extends StatelessWidget {
     final User? currentUser =
         Provider.of<OnBoardPageViewModel>(context, listen: false).currentUser;
     if (currentUser != null) {
-      return HomePage();
+      return GetSessionOwnerPage();
     } else {
       return LoginPage();
     }

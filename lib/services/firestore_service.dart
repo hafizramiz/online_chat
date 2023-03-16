@@ -191,8 +191,23 @@ class FirestoreService {
     return _dialogStream;
   }
 
+  Future<void> saveTokenToDatabase(String token, String userId) async {
+    await _firestore.collection('tokens').doc(userId).set({
+      'token': "$token",
+    });
+    print("Token firebase'e kayit edildi");
+  }
+
+  Future<DocumentSnapshot<Map<String, dynamic>>> getTokenFromDatabase(
+      {required userId}) {
+    /// Burada kontrol et token degismediyse database'e bir daha gitme.
+    final Future<DocumentSnapshot<Map<String, dynamic>>> _token =
+        _firestore.collection('tokens').doc(userId).get();
+    return _token;
+  }
+
   ///////////////////////////////
-  Future<List<QueryDocumentSnapshot<Object?>>>  getInitialMessages(
+  Future<List<QueryDocumentSnapshot<Object?>>> getInitialMessages(
       {required MUser sessionOwner, required MUser receiverUser}) {
     Future<List<QueryDocumentSnapshot<Object?>>> queryList = _firestore
         .collection('dialog')
@@ -201,27 +216,29 @@ class FirestoreService {
         .orderBy("createdTime", descending: true)
         .limit(9)
         .get()
-        .then((QuerySnapshot querySnapshot) {
-          return querySnapshot.docs;
-    },onError: (e) => print("Error completing: $e"),
+        .then(
+      (QuerySnapshot querySnapshot) {
+        return querySnapshot.docs;
+      },
+      onError: (e) => print("Error completing: $e"),
     );
     return queryList;
   }
 
-  // Future<List<QueryDocumentSnapshot<Object?>>> getMoreMessages(
-  //     Message lastMessage) {
-  //   Future<List<QueryDocumentSnapshot<Object?>>> queryList = _firestore
-  //       .collection('users')
-  //       .orderBy("displayName", descending: false)
-  //       .startAfter([lastUser.displayName])
-  //       .limit(7)
-  //       .get()
-  //       .then(
-  //         (QuerySnapshot querySnapshot) {
-  //           return querySnapshot.docs;
-  //         },
-  //         onError: (e) => print("Error completing: $e"),
-  //       );
-  //   return queryList;
-  // }
+// Future<List<QueryDocumentSnapshot<Object?>>> getMoreMessages(
+//     Message lastMessage) {
+//   Future<List<QueryDocumentSnapshot<Object?>>> queryList = _firestore
+//       .collection('users')
+//       .orderBy("displayName", descending: false)
+//       .startAfter([lastUser.displayName])
+//       .limit(7)
+//       .get()
+//       .then(
+//         (QuerySnapshot querySnapshot) {
+//           return querySnapshot.docs;
+//         },
+//         onError: (e) => print("Error completing: $e"),
+//       );
+//   return queryList;
+// }
 }

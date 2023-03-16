@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:online_chat/pages/profile_tab_page.dart';
 
 class MyCustomNavigationBar extends StatelessWidget {
   final TabItem currentTab;
