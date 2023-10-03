@@ -68,5 +68,4 @@ class PeopleTabPageViewModel with ChangeNotifier {
     print("token elde edildi: $token");
     await _firestoreService.saveTokenToDatabase(token!, sessionOwnerParam.userId!);
   }
-
 }

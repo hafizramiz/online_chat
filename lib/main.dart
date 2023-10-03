@@ -25,7 +25,9 @@ void main() async {
   await NotificationService().setUpFlutterNotifications();
   runApp(
     Provider<GeneralPageViewModel>(
-        create: (context) => GeneralPageViewModel(), child: MyApp()),
+      create: (context) => GeneralPageViewModel(),
+      child: MyApp(),
+    ),
   );
 }
 

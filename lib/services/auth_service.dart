@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
   AuthService._internal();
 
   static final AuthService _authService = AuthService._internal();
@@ -63,5 +62,4 @@ class AuthService {
      UserCredential userCredential=await _auth.signInWithCredential(credential);
      return userCredential.user;
   }
-
 }

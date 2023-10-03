@@ -32,7 +32,6 @@ class MyCustomNavigationBar extends StatelessWidget {
           return CupertinoTabView(
             navigatorKey: navigatorKeys[TabItem.values[index]],
             builder: (context) {
-              print("Build calisti");
               return buildPage(TabItem.values[index]);
             },
           );

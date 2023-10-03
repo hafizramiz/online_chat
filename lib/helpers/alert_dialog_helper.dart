@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class AlertDialogHelper {
-
   static Future<void> showMyDialog(
       {required BuildContext context,
         required String alertDialogTitle,

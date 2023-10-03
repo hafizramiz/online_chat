@@ -34,7 +34,7 @@ class FirestoreService {
     return getUser;
   }
 
-  Future<List<QueryDocumentSnapshot<Object?>>> getInitialUsers() {
+  Future<List<QueryDocumentSnapshot<Object?>>> getInitialUsers() async {
     Future<List<QueryDocumentSnapshot<Object?>>> queryList = _firestore
         .collection('users')
         .orderBy("displayName", descending: false)
@@ -169,6 +169,17 @@ class FirestoreService {
         receiverUser: receiverUser,
         sessionOwner: sessionOwner,
         dialogCollectionRef: dialogCollectionRef);
+  }
+
+  Future<void> updatePhotoUrl(
+      {required String userId, required String newPhotoUrl}) {
+    CollectionReference userCollectionRef = _firestore.collection('users');
+    return userCollectionRef
+        .doc(userId)
+        .update({"photoUrl": newPhotoUrl})
+        .then((value) => print("User Photo Url Update Edildi"))
+        .catchError(
+            (error) => print("Failed to update user photo url: $error"));
   }
 
   Future<QuerySnapshot<Map<String, dynamic>>> getAllChat(

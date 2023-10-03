@@ -9,7 +9,6 @@ class GeneralPageViewModel{
   AuthService _authService = AuthService.authService;
   FirestoreService _firestoreService = FirestoreService.firestoreService;
 
-
   Future<MUser> getSessionOwner() async {
     MUser currentUser = _getCurrentUser();
     if (currentUser.authState == AuthState.SUCCESFULL) {

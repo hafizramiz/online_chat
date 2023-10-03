@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'login_page.dart';
 
 class OnBoardPage extends StatelessWidget {
-
   Widget build(BuildContext context) {
     final User? currentUser =
         Provider.of<OnBoardPageViewModel>(context, listen: false).currentUser;
@@ -17,6 +16,7 @@ class OnBoardPage extends StatelessWidget {
     }
   }
 }
+
 /* return Scaffold(
           body: StreamBuilder<User?>(
               stream: FirebaseAuth.instance.userChanges(),

@@ -11,8 +11,8 @@ enum AuthState {
 class MUser {
   final String? userId;
   final String? email;
-  final String? displayName;
-  final String? photoUrl;
+   String? displayName;
+   String? photoUrl;
   final AuthState authState;
 
   MUser(
