@@ -19,7 +19,7 @@ A Flutter app for seamless chatting with Firebase Authentication, Cloud Firestor
 ```bash
 git clone [https://github.com/your-username/your-chat-app.git](https://github.com/hafizramiz/online_chat.git)
 
-Navigate to the project directory:
+2. Navigate to the project directory:
 
 cd your-chat-app
 
