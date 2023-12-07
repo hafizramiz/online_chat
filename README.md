@@ -25,4 +25,14 @@ To run this app locally, follow these steps:
 <img src="https://github.com/hafizramiz/cumamesajlari/assets/102408138/93de59a5-6f6c-4d10-8ffc-a9b789f7ab26" width="300" height="600" />
 <img src="https://github.com/hafizramiz/cumamesajlari/assets/102408138/1482f059-ed8c-4f76-bb1a-934fabee9728" width="300" height="600" />
 
+## 🤓 Author
+
+I'm Hafiz Ramiz, a passionate Mobile Developer with a love for Flutter. 
+Connect with me on [LinkedIn](https://www.linkedin.com/in/hafizramiz/) and [GitHub](https://github.com/hafizramiz).
+
+## 🌟 Show Your Support
+
+If you find this project interesting or helpful, consider giving it a star ⭐️. It means a lot!
+
+Happy coding! 🚀
 
