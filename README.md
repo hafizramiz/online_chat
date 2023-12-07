@@ -20,11 +20,6 @@ To run this app locally, follow these steps:
 2. Navigate to the project folder:  `cd your-repo`
 3. Run the app: `flutter run`
 
-## 📸 Screenshots
-<img src="https://github.com/hafizramiz/cumamesajlari/assets/102408138/9acbbd93-5a24-4640-b09b-d2505cbf2f44" width="300" height="600" />
-<img src="https://github.com/hafizramiz/cumamesajlari/assets/102408138/93de59a5-6f6c-4d10-8ffc-a9b789f7ab26" width="300" height="600" />
-<img src="https://github.com/hafizramiz/cumamesajlari/assets/102408138/1482f059-ed8c-4f76-bb1a-934fabee9728" width="300" height="600" />
-
 ## 🤓 Author
 
 I'm Hafiz Ramiz, a passionate Mobile Developer with a love for Flutter. 
