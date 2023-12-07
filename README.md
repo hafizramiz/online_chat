@@ -12,11 +12,13 @@ A Flutter app for seamless chatting with Firebase Authentication, Cloud Firestor
 - **User Discovery:** Find online users to connect and chat with.
 - **Profile Customization:** Personalize your user profile with customization options.
 
-## Usage
+## 🚀 Get Started
 
-1. Clone the repository:
+To run this app locally, follow these steps:
 
-git clone [https://github.com/your-username/your-chat-app.git](https://github.com/hafizramiz/online_chat.git)
+1. Clone this repository: [https://github.com/hafizramiz/cumamesajlari.git](https://github.com/hafizramiz/online_chat.git)
+2. Navigate to the project folder:  `cd your-repo`
+3. Run the app: `flutter run`
 
 
 
