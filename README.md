@@ -1,3 +1,5 @@
+Hi there! 👋 I'm Hafiz Ramiz, and welcome to the Myrepository. Thanks for dropping by! <img src="https://user-images.githubusercontent.com/102408138/181803992-c16d979a-e758-425b-8561-45bdf4fd04ec.gif" width="50" height="50" />
+
 # Flutter Chat App with Firebase
 
 A Flutter app for seamless chatting with Firebase Authentication, Cloud Firestore, Storage, and Push Notifications.
