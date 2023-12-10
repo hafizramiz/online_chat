@@ -109,7 +109,7 @@ class ProfileSettingPage extends StatelessWidget {
             ),
           );
         }
-        return Center(child: Text("loading"));
+        return Center(child: CircularProgressIndicator());
       },
     );
   }

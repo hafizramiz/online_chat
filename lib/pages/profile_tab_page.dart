@@ -75,10 +75,6 @@ class _ProfileDetailsState extends State<ProfileDetails> {
             body: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CircleAvatar(
-                  radius: 30,
-                  backgroundImage: NetworkImage("${newSessionOwner.photoUrl}"),
-                ),
                 Container(
                   width: 150,
                   height: 150,

@@ -148,7 +148,7 @@ class _LoginPageState extends State<LoginPage> {
                           color: Colors.white,
                         ),
                       )
-                    : Text("Log Inn"),
+                    : Text("Log In"),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
