@@ -18,7 +18,7 @@ A Flutter app for seamless chatting with Firebase Authentication, Cloud Firestor
 
 To run this app locally, follow these steps:
 
-1. Clone this repository: [https://github.com/hafizramiz/cumamesajlari.git](https://github.com/hafizramiz/online_chat.git)
+1. Clone this repository: [https://github.com/hafizramiz/online_chat.git]
 2. Navigate to the project folder:  `cd your-repo`
 3. Run the app: `flutter run`
 
