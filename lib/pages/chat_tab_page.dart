@@ -80,7 +80,7 @@ class ChatTabPage extends StatelessWidget {
                         });
                   }
                 }
-                return Center(child: Text("loading"));
+                return Center(child: CircularProgressIndicator());
               },
             ));
       },

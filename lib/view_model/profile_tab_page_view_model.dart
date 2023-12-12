@@ -99,6 +99,12 @@ class ProfileTabPageViewModel with ChangeNotifier{
       return getUser;
   }
 
+
+  Future<void>deleteUser()async{
+    await _authService.deleteUser();
+  }
+
+
   Future<void> signOut() async {
     await _authService.signOut();
   }

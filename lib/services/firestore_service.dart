@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:online_chat/model/chat.dart';
 import 'package:online_chat/model/m_user.dart';
 
@@ -235,6 +236,18 @@ class FirestoreService {
     );
     return queryList;
   }
+
+  Future<void> deleteUserFromFirestore(User user) async {
+      try {
+        DocumentReference _documentReference =
+        await _firestore.collection('users').doc(user.uid);
+        await _documentReference.delete();
+      } catch (error) {
+       print(error);
+      }
+  }
+
+
 
 // Future<List<QueryDocumentSnapshot<Object?>>> getMoreMessages(
 //     Message lastMessage) {

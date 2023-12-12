@@ -146,7 +146,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
             ),
           );
         }
-        return Center(child: Text("loading"));
+        return Center(child: CircularProgressIndicator());
       },
     );
   }

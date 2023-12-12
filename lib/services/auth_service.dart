@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -62,4 +63,16 @@ class AuthService {
      UserCredential userCredential=await _auth.signInWithCredential(credential);
      return userCredential.user;
   }
+
+  Future<void> deleteUser() async {
+    final user = _auth.currentUser;
+    if (user != null) {
+      try {
+        await user.delete();
+      } catch (error) {
+       print(error);
+      }
+    }
+  }
+
 }

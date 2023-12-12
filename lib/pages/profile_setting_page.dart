@@ -86,20 +86,11 @@ class ProfileSettingPage extends StatelessWidget {
                           SizedBox(
                             height: 40,
                           ),
-                          Text("E Mail"),
                           ElevatedButton(
                               onPressed: () async {
-                                if (_formKey.currentState!.validate()) {
-                                  // print(
-                                  //     "save butonu ve image degeri:${provider.image}");
-                                  //   await provider.updateUser(
-                                  //       context: context,
-                                  //      gelenSessionOwner: gelenSessionOwner,
-                                  //       image: provider.image);
-                                  //   provider.setterImage = null;
-                                }
+                                await provider.deleteUser();
                               },
-                              child: Text("Save Changes")),
+                              child: Text("Delete Account", style: TextStyle(color: Colors.red),)),
                         ],
                       ),
                     );
