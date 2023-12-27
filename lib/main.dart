@@ -37,8 +37,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: ChangeNotifierProvider(
           create: (context) => OnBoardPageViewModel(), child: OnBoardPage()),
     );
   }
 }
+
+
+//  Burda kald?m. Hesap silme ekliycem. Daha sonra  sha 1 ve sha2 alcam.
+
+// https://www.youtube.com/watch?v=ieOdT-p603Y&t=1098s   video    dakika 14

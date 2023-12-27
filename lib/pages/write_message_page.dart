@@ -28,14 +28,14 @@ class WriteMessagePage extends StatelessWidget {
       builder: (BuildContext context, child) {
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.green,
+            backgroundColor: Colors.grey[100],
             title: ListTile(
                 leading: CircleAvatar(
                   backgroundImage: NetworkImage("${receiverUser.photoUrl}"),
                 ),
                 title: Text(
                   "${receiverUser.displayName}",
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.black),
                 )),
           ),
           body: StreamBuilder<QuerySnapshot>(
@@ -93,22 +93,24 @@ class WriteMessagePage extends StatelessWidget {
           children: [
             Form(
               key: _formKey,
-              child: SizedBox(
-                width: 300,
-                child: TextFormField(
-                  validator: (value) {
-                    if (value == null || value?.trim().length == 0) {
-                      return 'Please write something';
-                    }
-                    return null;
-                  },
-                  controller: Provider.of<WriteMessageViewModel>(context)
-                      .messageController,
-                  decoration: InputDecoration(
-                      hintText: "Mesaj yazin",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      )),
+              child: Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value == null || value?.trim().length == 0) {
+                        return 'Please write something';
+                      }
+                      return null;
+                    },
+                    controller: Provider.of<WriteMessageViewModel>(context)
+                        .messageController,
+                    decoration: InputDecoration(
+                        hintText: "Mesaj yazin",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        )),
+                  ),
                 ),
               ),
             ),
@@ -144,20 +146,26 @@ class WriteMessagePage extends StatelessWidget {
           : CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.all( 10),
           child: Container(
             decoration: BoxDecoration(
                 color: currentMessage.fromMe == true
-                    ? Colors.grey
-                    : Colors.lightBlue,
+                    ? Colors.grey[700]
+                    : Colors.grey[900],
                 borderRadius: BorderRadius.circular(12)),
-            child: Text(
-              "${currentMessage.content} ${DateFormat.Hm().format(currentMessage.createdTime)}",
-              style: TextStyle(color: Colors.white, fontSize: 20),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "${currentMessage.content}",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
             ),
           ),
         ),
-        Text("${DateFormat.Hm().format(currentMessage.createdTime)}")
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Text("${DateFormat.Hm().format(currentMessage.createdTime)}"),
+        )
       ],
     );
   }
