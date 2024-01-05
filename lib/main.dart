@@ -3,6 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:online_chat/pages/on_board_page.dart';
 import 'package:online_chat/services/notification_service.dart';
+import 'package:online_chat/services/shared_pref_service.dart';
 import 'package:online_chat/view_model/general_page_view_model.dart';
 import 'package:online_chat/view_model/onboard_page_view_model.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,7 @@ void main() async {
   await FirebaseMessaging.instance.getInitialMessage();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await NotificationService().setUpFlutterNotifications();
+  await SharedPref.instance.setup();
   runApp(
     Provider<GeneralPageViewModel>(
       create: (context) => GeneralPageViewModel(),

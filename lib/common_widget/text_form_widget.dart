@@ -5,18 +5,21 @@ class MyTextFromField extends StatelessWidget {
   final String hintText;
   final IconData icon;
   final String errorMessage;
+  final bool obscureText;
 
   MyTextFromField({
     required this.controller,
     required String this.hintText,
     required this.icon,
-    required this.errorMessage
+    required this.errorMessage,
+    required this.obscureText
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(padding: EdgeInsets.all(15),
       child: TextFormField(
+        obscureText: obscureText,
         validator: (value) {
           if (value == null || value.isEmpty) {
             return errorMessage;

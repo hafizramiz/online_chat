@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:online_chat/helpers/alert_dialog_helper.dart';
 import 'package:online_chat/pages/get_session_owner_page.dart';
 import 'package:online_chat/pages/signup_page.dart';
+import 'package:online_chat/services/shared_pref_service.dart';
 import 'package:online_chat/view_model/login_page_view_model.dart';
 import 'package:provider/provider.dart';
 import '../common_widget/text_form_widget.dart';
@@ -54,116 +55,123 @@ class _LoginPageState extends State<LoginPage> {
       create: (context) => LoginPageViewModel(),
       builder: (BuildContext context, child) {
         return Scaffold(
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Log in",
-                style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-              ),
-              Text("Welcome to App"),
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    MyTextFromField(
-                      controller: Provider.of<LoginPageViewModel>(context)
-                          .emailController,
-                      icon: Icons.person,
-                      hintText: "E mail",
-                      errorMessage: "Please enter your e-mail",
-                    ),
-                    MyTextFromField(
-                      controller: Provider.of<LoginPageViewModel>(context)
-                          .passwordController,
-                      errorMessage: "Please enter your password",
-                      hintText: "Password",
-                      icon: Icons.lock,
-                    ),
-                  ],
+          resizeToAvoidBottomInset: true,
+          body: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 300,),
+                Text(
+                  "Log in",
+                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                 ),
-              ),
-              TextButton(onPressed: () {}, child: Text("Forget password ?")),
-              ElevatedButton(
-                onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    Provider.of<LoginPageViewModel>(context, listen: false)
-                        .isLoading = true;
-                    MUser mUser = await Provider.of<LoginPageViewModel>(context,
-                            listen: false)
-                        .signInWithEmailAndPassword();
-                    if (mUser.authState == AuthState.SUCCESFULL) {
-                      await Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => GetSessionOwnerPage()));
+                Text("Welcome to App"),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      MyTextFromField(
+                        obscureText: false,
+                        controller: Provider.of<LoginPageViewModel>(context)
+                            .emailController,
+                        icon: Icons.person,
+                        hintText: "E mail",
+                        errorMessage: "Please enter your e-mail",
+                      ),
+                      MyTextFromField(
+                        obscureText: true,
+                        controller: Provider.of<LoginPageViewModel>(context)
+                            .passwordController,
+                        errorMessage: "Please enter your password",
+                        hintText: "Password",
+                        icon: Icons.lock,
+                      ),
+                    ],
+                  ),
+                ),
+                TextButton(onPressed: () {}, child: Text("Forget password ?")),
+                ElevatedButton(
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
                       Provider.of<LoginPageViewModel>(context, listen: false)
-                          .isLoading = false;
-                    } else if (mUser.authState == AuthState.ERROR) {
-                      AlertDialogHelper.showMyDialog(
-                          context: context,
-                          alertDialogTitle: "Uyari",
-                          alertDialogContent: "Beklenmeyen hata olustu",
-                          onPressed: () {
-                            Navigator.pop(context);
-                          });
-                      Provider.of<LoginPageViewModel>(context, listen: false)
-                          .isLoading = false;
-                    } else if (mUser.authState == AuthState.WRONGPASSWORD) {
-                      AlertDialogHelper.showMyDialog(
-                          context: context,
-                          alertDialogTitle: "Uyari",
-                          alertDialogContent: "Hatali Sifre girdiniz",
-                          onPressed: () {
-                            Navigator.pop(context);
-                          });
-                      Provider.of<LoginPageViewModel>(context, listen: false)
-                          .isLoading = false;
-                    } else if (mUser.authState == AuthState.USERNOTFOUND) {
-                      AlertDialogHelper.showMyDialog(
-                          context: context,
-                          alertDialogTitle: "Uyari",
-                          alertDialogContent: "Kullanici Bulunamadi",
-                          onPressed: () {
-                            Navigator.pop(context);
-                          });
-                      Provider.of<LoginPageViewModel>(context, listen: false)
-                          .isLoading = false;
-                    } else {
-                      AlertDialogHelper.showMyDialog(
-                          context: context,
-                          alertDialogTitle: "Uyari",
-                          alertDialogContent: "Beklenmeyen hata olustu",
-                          onPressed: () {
-                            Navigator.pop(context);
-                          });
-                      Provider.of<LoginPageViewModel>(context, listen: false)
-                          .isLoading = false;
+                          .isLoading = true;
+                      MUser mUser = await Provider.of<LoginPageViewModel>(context,
+                              listen: false)
+                          .signInWithEmailAndPassword();
+                      if (mUser.authState == AuthState.SUCCESFULL) {
+                        await Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => GetSessionOwnerPage()));
+                        Provider.of<LoginPageViewModel>(context, listen: false)
+                            .isLoading = false;
+                        await CacheManager2.signOut.write("");
+                      } else if (mUser.authState == AuthState.ERROR) {
+                        AlertDialogHelper.showMyDialog(
+                            context: context,
+                            alertDialogTitle: "Uyari",
+                            alertDialogContent: "Beklenmeyen hata olustu",
+                            onPressed: () {
+                              Navigator.pop(context);
+                            });
+                        Provider.of<LoginPageViewModel>(context, listen: false)
+                            .isLoading = false;
+                      } else if (mUser.authState == AuthState.WRONGPASSWORD) {
+                        AlertDialogHelper.showMyDialog(
+                            context: context,
+                            alertDialogTitle: "Uyari",
+                            alertDialogContent: "Hatali Sifre girdiniz",
+                            onPressed: () {
+                              Navigator.pop(context);
+                            });
+                        Provider.of<LoginPageViewModel>(context, listen: false)
+                            .isLoading = false;
+                      } else if (mUser.authState == AuthState.USERNOTFOUND) {
+                        AlertDialogHelper.showMyDialog(
+                            context: context,
+                            alertDialogTitle: "Uyari",
+                            alertDialogContent: "Kullanici Bulunamadi",
+                            onPressed: () {
+                              Navigator.pop(context);
+                            });
+                        Provider.of<LoginPageViewModel>(context, listen: false)
+                            .isLoading = false;
+                      } else {
+                        AlertDialogHelper.showMyDialog(
+                            context: context,
+                            alertDialogTitle: "Uyari",
+                            alertDialogContent: "Beklenmeyen hata olustu",
+                            onPressed: () {
+                              Navigator.pop(context);
+                            });
+                        Provider.of<LoginPageViewModel>(context, listen: false)
+                            .isLoading = false;
+                      }
                     }
-                  }
-                },
-                child: Provider.of<LoginPageViewModel>(context).getisLoading ==
-                        true
-                    ? SizedBox(
-                        width: 10,
-                        height: 10,
-                        child: CircularProgressIndicator(
-                          color: Colors.white,
-                        ),
-                      )
-                    : Text("Log In"),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Dont have an account?"),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => SignUpPage()));
-                      },
-                      child: Text("Sign Up"))
-                ],
-              )
-            ],
+                  },
+                  child: Provider.of<LoginPageViewModel>(context).getisLoading ==
+                          true
+                      ? SizedBox(
+                          width: 10,
+                          height: 10,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                        )
+                      : Text("Log In"),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Dont have an account?"),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => SignUpPage()));
+                        },
+                        child: Text("Sign Up"))
+                  ],
+                )
+              ],
+            ),
           ),
         );
       },

@@ -1,10 +1,13 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:online_chat/pages/on_board_page.dart';
 import 'package:online_chat/pages/profile_setting_page.dart';
 import 'package:online_chat/view_model/profile_tab_page_view_model.dart';
 import 'package:provider/provider.dart';
 import '../model/m_user.dart';
+import '../services/shared_pref_service.dart';
 import '../view_model/general_page_view_model.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -75,26 +78,63 @@ class _ProfileDetailsState extends State<ProfileDetails> {
             body: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  width: 150,
-                  height: 150,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    shape: BoxShape.circle,
-                  ),
+                Center(
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
                     child: Provider.of<ProfileTabPageViewModel>(context)
-                                .image ==
-                            null
-                        ? Image.network("${newSessionOwner.photoUrl}")
-                        : Image.file(File(
-                                Provider.of<ProfileTabPageViewModel>(context)
-                                    .image!
-                                    .path)
-                            .absolute),
+                        .image ==
+                        null
+                        ? Image.network(
+                        height: 200.0,
+                        width: 200.0,
+                        fit: BoxFit.cover,
+                        "${newSessionOwner.photoUrl}")
+                        : Image.file(
+                        height: 150.0,
+                        width: 150.0,
+                        fit: BoxFit.cover,
+                        File(
+                        Provider.of<ProfileTabPageViewModel>(context)
+                            .image!
+                            .path)
+                        .absolute),
                   ),
                 ),
+
+                SizedBox(height: 20,),
+
+                // CachedNetworkImage(
+                //   imageUrl:newSessionOwner.photoUrl!,
+                //   imageBuilder:
+                //       (context, imageProvider) =>
+                //       Padding(
+                //         padding: const EdgeInsets.all(8.0),
+                //         child: Card(
+                //           elevation: 10,
+                //           shape: RoundedRectangleBorder(
+                //               borderRadius:
+                //               BorderRadius.circular(10),
+                //               side: const BorderSide(width: 3, color: Colors.grey)),
+                //           child: Container(
+                //             decoration: BoxDecoration(
+                //               //border: Border.all(width: 2,color: Colors.grey),
+                //               borderRadius:
+                //               BorderRadius.circular(10),
+                //               image: DecorationImage(
+                //                 image: imageProvider,
+                //                 fit: BoxFit.cover,
+                //               ),
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //   placeholder: (context, url) =>
+                //   const Center(child: CircularProgressIndicator()),
+                //   errorWidget: (context, url, error) =>
+                //       Icon(Icons.error),
+                // ),
+
+
                 CircleAvatar(
                     radius: 20,
                     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -122,9 +162,10 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                       await Provider.of<GeneralPageViewModel>(context,
                               listen: false)
                           .signOut();
-
+                      await CacheManager2.signOut.write("log out yapildi");
                       Navigator.of(context, rootNavigator: true)
                           .popUntil(ModalRoute.withName("/"));
+
                       // final logout = await ExitAppHelper.exitApp(context);
                       // print("logout degeri : ${logout}");
                       // if (logout == true) {

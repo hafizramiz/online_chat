@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../helpers/create_muser_object.dart';
 import '../model/m_user.dart';
 import '../services/auth_service.dart';
+import '../services/shared_pref_service.dart';
 
 
 class LoginPageViewModel with ChangeNotifier{
@@ -28,9 +29,13 @@ class LoginPageViewModel with ChangeNotifier{
       if (user != null) {
         loggedUser = CreateMUser.createMUserObject(
             AuthState.SUCCESFULL, user.uid, user.email);
+        // Burda kullanici giris yapabildiyse onun token bilgisini alip kayit atcam
+        await CacheManager.token.write(user.uid);
       } else {
         loggedUser = CreateMUser.createMUserObject(AuthState.ERROR, null);
       }
+
+
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         loggedUser =

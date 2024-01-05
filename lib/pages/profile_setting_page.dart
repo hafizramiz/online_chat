@@ -41,22 +41,46 @@ class ProfileSettingPage extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Container(
-                            width: 150,
-                            height: 150,
-                            decoration: BoxDecoration(
-                              color: Colors.black,
-                              shape: BoxShape.circle,
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(100),
-                              child: provider.image == null
-                                  ? Image.network(
-                                      "${newSessionOwner.photoUrl}")
-                                  : Image.file(
-                                      File(provider.image!.path).absolute),
-                            ),
+
+                          SizedBox(height: 150,),
+                          ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            child: Provider.of<ProfileTabPageViewModel>(context)
+                                .image ==
+                                null
+                                ? Image.network(
+                                height: 150.0,
+                                width: 150.0,
+                                fit: BoxFit.cover,
+                                "${newSessionOwner.photoUrl}")
+                                : Image.file(
+                                height: 150.0,
+                                width: 150.0,
+                                fit: BoxFit.cover,
+                                File(
+                                    Provider.of<ProfileTabPageViewModel>(context)
+                                        .image!
+                                        .path)
+                                    .absolute),
                           ),
+
+                          // Container(
+                          //   width: 150,
+                          //   height: 150,
+                          //   decoration: BoxDecoration(
+                          //     color: Colors.black,
+                          //     shape: BoxShape.circle,
+                          //   ),
+                          //   child: ClipRRect(
+                          //     borderRadius: BorderRadius.circular(100),
+                          //     child: provider.image == null
+                          //         ? Image.network(
+                          //             "${newSessionOwner.photoUrl}")
+                          //         : Image.file(
+                          //             File(provider.image!.path).absolute),
+                          //   ),
+                          // ),
+                          SizedBox(height: 20,),
                           CircleAvatar(
                               radius: 20,
                               backgroundColor:
@@ -68,6 +92,7 @@ class ProfileSettingPage extends StatelessWidget {
                                       context, gelenSessionOwner.userId!);
                                 },
                               )),
+                          SizedBox(height: 20,),
                           Text("DisplayName"),
                           TextFormField(
                             // controller: provider.displayNameController,

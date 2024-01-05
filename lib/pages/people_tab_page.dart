@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:online_chat/pages/write_message_page.dart';
@@ -117,6 +118,8 @@ class _PeopleTabPageState extends State<PeopleTabPage> {
                 return Padding(
                   padding: EdgeInsets.symmetric(vertical: 17),
                   child: Card(
+                    color: Colors.white,
+                    elevation: 3,
                     child: ListTile(
                       onTap: () {
                         Navigator.of(context, rootNavigator: true)
@@ -128,7 +131,31 @@ class _PeopleTabPageState extends State<PeopleTabPage> {
                       },
                       title: Text("${allUserList[index].displayName}"),
                       trailing: Icon(Icons.chevron_right),
-                      leading: Image.network("${allUserList[index].photoUrl}"),
+                      leading:  CircleAvatar(
+                        child: CachedNetworkImage(
+                          imageUrl: allUserList[index].photoUrl!,
+                          imageBuilder:
+                              (context, imageProvider) =>
+                              Container(
+                                decoration: BoxDecoration(
+                                  //border: Border.all(width: 2,color: Colors.grey),
+                                  borderRadius:
+                                  BorderRadius.circular(10),
+                                  image: DecorationImage(
+                                    image: imageProvider,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                          placeholder: (context, url) =>
+                          const Center(child: CircularProgressIndicator()),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
+                        ),
+                      ),
+                      // leading:CircleAvatar(
+                      //
+                      //     child: Image.network("${allUserList[index].photoUrl}")),
                     ),
                   ),
                 );

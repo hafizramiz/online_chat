@@ -14,7 +14,7 @@ class SignUpPage extends StatelessWidget {
       create: (context) => SignUpPageViewModel(),
       builder: (BuildContext context, child) {
         return Scaffold(
-          resizeToAvoidBottomInset: false,
+          resizeToAvoidBottomInset: true,
           body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -68,6 +68,7 @@ class SignUpPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(12.0),
                       child: TextFormField(
+                        obscureText: true,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter password';
@@ -87,6 +88,7 @@ class SignUpPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(12.0),
                       child: TextFormField(
+                        obscureText: true,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter password';
@@ -210,12 +212,7 @@ class SignUpPage extends StatelessWidget {
                   Text("Already have an account?"),
                   TextButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LoginPage(),
-                        ),
-                      );
+                      Navigator.pop(context);
                     },
                     child: Text("Log in"),
                   )

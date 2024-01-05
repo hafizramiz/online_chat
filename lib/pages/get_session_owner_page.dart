@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_chat/pages/home_page.dart';
+import 'package:online_chat/pages/shimmer.dart';
 import 'package:online_chat/view_model/general_page_view_model.dart';
 import 'package:provider/provider.dart';
 import '../model/m_user.dart';
@@ -37,7 +38,7 @@ class _GetSessionOwnerPageState extends State<GetSessionOwnerPage> {
             return Scaffold(body: Center(child: Text("Hata Olustu: ${snapshot.error}"),));
           }
           return Center(
-            child: CircularProgressIndicator(),
+            child: LoadingListPage(),
           );
 
           return Container();

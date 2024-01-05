@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:online_chat/pages/shimmer.dart';
 import 'package:online_chat/pages/write_message_page.dart';
 import 'package:online_chat/view_model/chat_tab_page_view_model.dart';
 import 'package:provider/provider.dart';
@@ -80,7 +81,8 @@ class ChatTabPage extends StatelessWidget {
                         });
                   }
                 }
-                return Center(child: CircularProgressIndicator());
+                return LoadingListPage();
+                //return Center(child: CircularProgressIndicator());
               },
             ));
       },
