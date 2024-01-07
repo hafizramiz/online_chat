@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class MyTextFromField extends StatelessWidget {
   TextEditingController controller = TextEditingController();
   final String hintText;
-  final IconData icon;
+  final Icon icon;
   final String errorMessage;
   final bool obscureText;
 
@@ -29,11 +29,9 @@ class MyTextFromField extends StatelessWidget {
         //obscureText: true,
         controller: controller,
         decoration: InputDecoration(
+            border: InputBorder.none,
             hintText: hintText,
-            prefixIcon: Icon(icon),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            )),
+            prefixIcon: icon),
       ),
     );
   }

@@ -46,7 +46,7 @@ class _OnbodingScreenState extends State<OnbodingScreen> {
       // }else{
       //   return LoginPage();
       // }
-     return LoginPage();
+      return LoginPage();
     }else{
       print("on board'a gitti");
       return Scaffold(
