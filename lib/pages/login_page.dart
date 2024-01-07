@@ -95,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ]),
                         child: Form(
-                          autovalidateMode: AutovalidateMode.always,
+
                           key: _formKey,
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,

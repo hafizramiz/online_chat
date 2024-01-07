@@ -19,6 +19,7 @@ class MyTextFromField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(padding: EdgeInsets.all(15),
       child: TextFormField(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         obscureText: obscureText,
         validator: (value) {
           if (value == null || value.isEmpty) {

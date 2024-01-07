@@ -15,13 +15,10 @@ class SignUpPage extends StatelessWidget {
       builder: (BuildContext context, child) {
         return Scaffold(
           backgroundColor: Color(0xffe8ebed),
-          body: SingleChildScrollView(
-            //we are adding this so that we can scroll when KeyBoard PopsUp.
-            child: Container(
-              height: MediaQuery.of(context).size.height,
-              // If you get any blur that is outoff the screen then try to decrease or increase this negative value.This is mainly bcz it adjusts as per the phone size.
-              alignment: Alignment.topCenter,
-              child: Container(
+          body: ListView(
+            reverse: true,
+            children:[
+              Container(
                   padding: EdgeInsets.all(30),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -77,9 +74,9 @@ class SignUpPage extends StatelessWidget {
                                           return null;
                                         },
                                         controller:
-                                            Provider.of<SignUpPageViewModel>(
-                                                    context)
-                                                .displayNameController,
+                                        Provider.of<SignUpPageViewModel>(
+                                            context)
+                                            .displayNameController,
                                         decoration: InputDecoration(
                                             hintText: "Full Name",
                                             prefixIcon: Icon(Icons.person),
@@ -102,9 +99,9 @@ class SignUpPage extends StatelessWidget {
                                           return null;
                                         },
                                         controller:
-                                            Provider.of<SignUpPageViewModel>(
-                                                    context)
-                                                .emailController,
+                                        Provider.of<SignUpPageViewModel>(
+                                            context)
+                                            .emailController,
                                         decoration: InputDecoration(
                                             hintText: "E mail",
                                             prefixIcon: Icon(Icons.person),
@@ -128,9 +125,9 @@ class SignUpPage extends StatelessWidget {
                                           return null;
                                         },
                                         controller:
-                                            Provider.of<SignUpPageViewModel>(
-                                                    context)
-                                                .passwordController,
+                                        Provider.of<SignUpPageViewModel>(
+                                            context)
+                                            .passwordController,
                                         decoration: InputDecoration(
                                             hintText: "Password",
                                             prefixIcon: Icon(Icons.lock),
@@ -151,14 +148,14 @@ class SignUpPage extends StatelessWidget {
                                           if (value == null || value.isEmpty) {
                                             return 'Please enter password';
                                           } else if (Provider.of<
-                                                          SignUpPageViewModel>(
-                                                      context,
-                                                      listen: false)
-                                                  .passwordController
-                                                  .text !=
+                                              SignUpPageViewModel>(
+                                              context,
+                                              listen: false)
+                                              .passwordController
+                                              .text !=
                                               Provider.of<SignUpPageViewModel>(
-                                                      context,
-                                                      listen: false)
+                                                  context,
+                                                  listen: false)
                                                   .againPasswordController
                                                   .text) {
                                             return "Sifreler eslesmiyor";
@@ -166,9 +163,9 @@ class SignUpPage extends StatelessWidget {
                                           return null;
                                         },
                                         controller:
-                                            Provider.of<SignUpPageViewModel>(
-                                                    context)
-                                                .againPasswordController,
+                                        Provider.of<SignUpPageViewModel>(
+                                            context)
+                                            .againPasswordController,
                                         decoration: InputDecoration(
                                             hintText: "Password Again",
                                             prefixIcon: Icon(Icons.lock),
@@ -198,11 +195,11 @@ class SignUpPage extends StatelessWidget {
                               if (_formKey.currentState!.validate()) {
                                 /// isloading'i set ettim.
                                 Provider.of<SignUpPageViewModel>(context,
-                                        listen: false)
+                                    listen: false)
                                     .isLoading = true;
                                 final MUser createdUser = await Provider.of<
-                                            SignUpPageViewModel>(context,
-                                        listen: false)
+                                    SignUpPageViewModel>(context,
+                                    listen: false)
                                     .createAndSaveUserWithEmailAndPassword();
                                 if (createdUser.authState ==
                                     AuthState.SUCCESFULL) {
@@ -211,7 +208,7 @@ class SignUpPage extends StatelessWidget {
                                       MaterialPageRoute(
                                           builder: (context) => LoginPage()));
                                   Provider.of<SignUpPageViewModel>(context,
-                                          listen: false)
+                                      listen: false)
                                       .isLoading = false;
                                 } else if (createdUser.authState ==
                                     AuthState.ERROR) {
@@ -223,7 +220,7 @@ class SignUpPage extends StatelessWidget {
                                         Navigator.pop(context);
                                       });
                                   Provider.of<SignUpPageViewModel>(context,
-                                          listen: false)
+                                      listen: false)
                                       .isLoading = false;
                                 } else if (createdUser.authState ==
                                     AuthState.WEAKPASSWORD) {
@@ -235,7 +232,7 @@ class SignUpPage extends StatelessWidget {
                                         Navigator.pop(context);
                                       });
                                   Provider.of<SignUpPageViewModel>(context,
-                                          listen: false)
+                                      listen: false)
                                       .isLoading = false;
                                 } else if (createdUser.authState ==
                                     AuthState.EMAILINUSE) {
@@ -243,47 +240,46 @@ class SignUpPage extends StatelessWidget {
                                       context: context,
                                       alertDialogTitle: "Uyari",
                                       alertDialogContent:
-                                          "E mail already in use",
+                                      "E mail already in use",
                                       onPressed: () {
                                         Navigator.pop(context);
                                       });
                                   Provider.of<SignUpPageViewModel>(context,
-                                          listen: false)
+                                      listen: false)
                                       .isLoading = false;
                                 } else {
                                   AlertDialogHelper.showMyDialog(
                                       context: context,
                                       alertDialogTitle: "Uyari",
                                       alertDialogContent:
-                                          "Beklenmeyen hata olustu",
+                                      "Beklenmeyen hata olustu",
                                       onPressed: () {
                                         Navigator.pop(context);
                                       });
                                   Provider.of<SignUpPageViewModel>(context,
-                                          listen: false)
+                                      listen: false)
                                       .isLoading = false;
                                 }
                               }
                             },
                             child: Provider.of<SignUpPageViewModel>(context)
-                                        .getisLoading ==
-                                    true
+                                .getisLoading ==
+                                true
                                 ? SizedBox(
-                                    width: 10,
-                                    height: 10,
-                                    child: CircularProgressIndicator(
-                                      color: Colors.white,
-                                    ),
-                                  )
+                              width: 10,
+                              height: 10,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            )
                                 : Text(
-                                    "Sign Up",
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w700),
-                                  ),
+                              "Sign Up",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700),
+                            ),
                           ),
-
                         ],
                       ),
                       SizedBox(height: 25),
@@ -303,11 +299,11 @@ class SignUpPage extends StatelessWidget {
                                         color: Colors.deepPurpleAccent,
                                         fontSize: 18)),
                               ),
-                            )
+                            ),
                           ]),
                     ],
                   )),
-            ),
+            ]
           ),
         );
       },
