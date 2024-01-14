@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:online_chat/pages/on_board_page.dart';
 import 'package:online_chat/pages/profile_setting_page.dart';
 import 'package:online_chat/view_model/profile_tab_page_view_model.dart';
 import 'package:provider/provider.dart';
