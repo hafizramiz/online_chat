@@ -24,7 +24,6 @@ class ProfileSettingPage extends StatelessWidget {
         } else if (snapshot.hasData) {
           MUser newSessionOwner = snapshot.data!;
           return Scaffold(
-            resizeToAvoidBottomInset: false,
             appBar: AppBar(
               title: Text('Profile Settings'),
             ),
@@ -33,90 +32,124 @@ class ProfileSettingPage extends StatelessWidget {
                 create: (context) => ProfileTabPageViewModel(),
                 child: Consumer<ProfileTabPageViewModel>(
                   builder: (_, provider, child) {
-                    print("image degeri: ${provider.image}");
-                    // provider.displayNameController.text = gelenSessionOwner.displayName!;
-
-                    return Form(
-                      key: _formKey,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-
-                          SizedBox(height: 150,),
-                          ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            child: Provider.of<ProfileTabPageViewModel>(context)
-                                .image ==
-                                null
-                                ? Image.network(
-                                height: 150.0,
-                                width: 150.0,
-                                fit: BoxFit.cover,
-                                "${newSessionOwner.photoUrl}")
-                                : Image.file(
-                                height: 150.0,
-                                width: 150.0,
-                                fit: BoxFit.cover,
-                                File(
-                                    Provider.of<ProfileTabPageViewModel>(context)
-                                        .image!
-                                        .path)
-                                    .absolute),
-                          ),
-
-                          // Container(
-                          //   width: 150,
-                          //   height: 150,
-                          //   decoration: BoxDecoration(
-                          //     color: Colors.black,
-                          //     shape: BoxShape.circle,
-                          //   ),
-                          //   child: ClipRRect(
-                          //     borderRadius: BorderRadius.circular(100),
-                          //     child: provider.image == null
-                          //         ? Image.network(
-                          //             "${newSessionOwner.photoUrl}")
-                          //         : Image.file(
-                          //             File(provider.image!.path).absolute),
-                          //   ),
-                          // ),
-                          SizedBox(height: 20,),
-                          CircleAvatar(
-                              radius: 20,
-                              backgroundColor:
-                                  Theme.of(context).scaffoldBackgroundColor,
-                              child: IconButton(
-                                icon: Icon(Icons.camera),
-                                onPressed: () async {
-                                  await provider.pickImage(
-                                      context, gelenSessionOwner.userId!);
+                    return Container(
+                      padding: EdgeInsets.only(top: 30, left: 20, right: 20),
+                      height: MediaQuery.of(context).size.height - 100,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40),
+                          topRight: Radius.circular(40),
+                        ),
+                      ),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 100,),
+                            ClipRRect(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(100),
+                              ),
+                              child: Provider.of<ProfileTabPageViewModel>(
+                                              context)
+                                          .image ==
+                                      null
+                                  ? Image.network(
+                                      height: 200.0,
+                                      width: 200.0,
+                                      fit: BoxFit.cover,
+                                      "${newSessionOwner.photoUrl}")
+                                  : Image.file(
+                                      height: 150.0,
+                                      width: 150.0,
+                                      fit: BoxFit.cover,
+                                      File(Provider.of<ProfileTabPageViewModel>(
+                                                  context)
+                                              .image!
+                                              .path)
+                                          .absolute),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Align(
+                              alignment: Alignment.bottomLeft,
+                              child: Text(
+                                "Full Name",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 24),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 5),
+                              decoration: BoxDecoration(
+                                  color: Color(0xfff5f8fd),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20))),
+                              child: TextFormField(
+                                // controller: provider.displayNameController,
+                                validator: (value) {
+                                  if (value == null ||
+                                      value?.trim().length == 0) {
+                                    return 'Please write something';
+                                  }
+                                  return null;
                                 },
-                              )),
-                          SizedBox(height: 20,),
-                          Text("DisplayName"),
-                          TextFormField(
-                            // controller: provider.displayNameController,
-                            validator: (value) {
-                              if (value == null || value?.trim().length == 0) {
-                                return 'Please write something';
-                              }
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                                hintText: "${newSessionOwner.displayName}",
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                )),
-                          ),
-                          SizedBox(
-                            height: 40,
-                          ),
-                          ElevatedButton(
+                                decoration: InputDecoration(
+                                    hintText: "${newSessionOwner.displayName}",
+                                    border: InputBorder.none),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 40,
+                            ),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.grey,
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 70, vertical: 17),
+                                  textStyle: TextStyle(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold)),
+                              onPressed: () async {
+                                await provider.pickImage(
+                                    context, gelenSessionOwner.userId!);
+                              },
+                              child: Text(
+                                "Change Profile Picture",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.red,
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 100, vertical: 17),
+                                  textStyle: TextStyle(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold)),
                               onPressed: () async {
                                 await provider.deleteUser();
                               },
-                              child: Text("Delete Account", style: TextStyle(color: Colors.red),)),
-                        ],
+                              child: Text(
+                                "Delete Account",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },
@@ -124,6 +157,162 @@ class ProfileSettingPage extends StatelessWidget {
               ),
             ),
           );
+
+          // return Scaffold(
+          //   backgroundColor: Color(0xff5b61b9),
+          //   body: ListView(children: [
+          //     // App bar
+          //     Padding(
+          //       padding: EdgeInsets.symmetric(horizontal: 10),
+          //       child: Row(
+          //         mainAxisAlignment: MainAxisAlignment.end,
+          //         children: [
+          //           ElevatedButton(
+          //             child:
+          //             PrimaryText(text: 'Settings', color: Colors.black87),
+          //             onPressed: () {
+          //               Navigator.of(context, rootNavigator: true)
+          //                   .push(
+          //                 MaterialPageRoute(
+          //                   builder: (context) => ChangeNotifierProvider(
+          //                     create: (context) =>
+          //                         ProfileTabPageViewModel(),
+          //                     child: ProfileSettingPage(
+          //                       gelenSessionOwner: newSessionOwner,
+          //                     ),
+          //                   ),
+          //                 ),
+          //               )
+          //                   .then((value) => onGoBack(value));
+          //             },
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //     Container(
+          //       padding: EdgeInsets.only(top: 30, left: 40),
+          //       height: 200,
+          //       child: Column(
+          //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         children: [
+          //           PrimaryText(
+          //             text: 'Profile \nInformation',
+          //             fontSize: 30,
+          //             color: Colors.white,
+          //             fontWeight: FontWeight.w900,
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //
+          //     Container(
+          //       padding: EdgeInsets.only(top: 30, left: 20, right: 20),
+          //       height: MediaQuery.of(context).size.height - 100,
+          //       decoration: BoxDecoration(
+          //         color: Colors.white,
+          //         borderRadius: BorderRadius.only(
+          //           topLeft: Radius.circular(40),
+          //           topRight: Radius.circular(40),
+          //         ),
+          //       ),
+          //       child: Column(children: [
+          //         Stack(children: [
+          //           Center(
+          //             child: ClipRRect(
+          //               borderRadius: BorderRadius.all(Radius.circular(10)),
+          //               child: Provider.of<ProfileTabPageViewModel>(context)
+          //                   .image ==
+          //                   null
+          //                   ? Image.network(
+          //                   height: 200.0,
+          //                   width: 200.0,
+          //                   fit: BoxFit.cover,
+          //                   "${newSessionOwner.photoUrl}")
+          //                   : Image.file(
+          //                   height: 150.0,
+          //                   width: 150.0,
+          //                   fit: BoxFit.cover,
+          //                   File(Provider.of<ProfileTabPageViewModel>(
+          //                       context)
+          //                       .image!
+          //                       .path)
+          //                       .absolute),
+          //             ),
+          //           ),
+          //           Positioned(
+          //             bottom: 0,
+          //             left: 210,
+          //             child: Container(
+          //               child: ElevatedButton(
+          //                 child: Icon(Icons.edit),
+          //                 onPressed: () async {
+          //                   await Provider.of<ProfileTabPageViewModel>(context,
+          //                       listen: false)
+          //                       .pickImage(context, newSessionOwner.userId!);
+          //                 },
+          //               ),
+          //             ),
+          //           ),
+          //         ],),
+          //         SizedBox(
+          //           height: 20,
+          //         ),
+          //         ListTile(
+          //           // title: Text("Display Name"),
+          //           title: Text(
+          //             "Full Name",
+          //             style:
+          //             TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+          //           ),
+          //           subtitle: Text(
+          //             "${newSessionOwner.displayName}",
+          //             style: TextStyle(fontSize: 24),
+          //           ),
+          //         ),
+          //         ListTile(
+          //           title: Text(
+          //             "Email ",
+          //             style:
+          //             TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+          //           ),
+          //           subtitle: Text(
+          //             "${newSessionOwner.email}",
+          //             style: TextStyle(fontSize: 24),
+          //           ),
+          //         ),
+          //         SizedBox(
+          //           height: 20,
+          //         ),
+          //         ElevatedButton(
+          //           style: ElevatedButton.styleFrom(
+          //               backgroundColor: Colors.grey,
+          //               padding: EdgeInsets.symmetric(
+          //                   horizontal: 70, vertical: 20),
+          //               textStyle: TextStyle(
+          //                   fontSize: 30, fontWeight: FontWeight.bold)),
+          //           onPressed: () async {
+          //             /// Sign out yaparken bunu kullan:
+          //             /// Her ne kadar uygulamanin initial route'ni belirtmemis olsak bile Uygulamamiz varsayilan olarak
+          //             /// slash (/) ile aslar
+          //             await Provider.of<GeneralPageViewModel>(context,
+          //                 listen: false)
+          //                 .signOut();
+          //             await CacheManager2.signOut.write("log out yapildi");
+          //             Navigator.of(context, rootNavigator: true)
+          //                 .popUntil(ModalRoute.withName("/"));
+          //           },
+          //           child: Text(
+          //             "Log Out",
+          //             style: TextStyle(
+          //                 fontSize: 20,
+          //                 color: Colors.white,
+          //                 fontWeight: FontWeight.w700),
+          //           ),
+          //         ),
+          //       ]),
+          //     ),
+          //   ]),
+          // );
         }
         return Center(child: CircularProgressIndicator());
       },

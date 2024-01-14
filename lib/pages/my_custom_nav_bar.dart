@@ -19,6 +19,9 @@ class MyCustomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
         tabBar: CupertinoTabBar(
+          backgroundColor: Colors.transparent,
+            activeColor:Color(0xff5b61b9),
+          inactiveColor: Colors.black87,
           items: [
             _buildBottomNavigationBarItem(TabItem.People),
             _buildBottomNavigationBarItem(TabItem.Chat),
@@ -41,11 +44,24 @@ class MyCustomNavigationBar extends StatelessWidget {
   BottomNavigationBarItem _buildBottomNavigationBarItem(TabItem tabItem) {
     switch (tabItem) {
       case TabItem.Profile:
-        return BottomNavigationBarItem(icon: Icon(Icons.person));
+        return BottomNavigationBarItem(
+            icon: Icon(
+          Icons.person,
+          size: 40,
+        ));
+
       case TabItem.People:
-        return BottomNavigationBarItem(icon: Icon(Icons.people));
+        return BottomNavigationBarItem(
+            icon: Icon(
+          Icons.people,
+          size: 40,
+        ));
       case TabItem.Chat:
-        return BottomNavigationBarItem(icon: Icon(Icons.chat));
+        return BottomNavigationBarItem(
+            icon: Icon(
+          Icons.chat,
+          size: 40,
+        ));
     }
   }
 }

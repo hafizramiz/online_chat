@@ -6,8 +6,6 @@ import 'package:online_chat/view_model/chat_tab_page_view_model.dart';
 import 'package:provider/provider.dart';
 import '../model/chat.dart';
 import '../model/m_user.dart';
-import 'chat_screen/chat_screen.dart';
-import 'chat_screen/constants.dart';
 import 'chat_screen/style.dart';
 
 class ChatTabPage extends StatelessWidget {

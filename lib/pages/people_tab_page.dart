@@ -8,6 +8,7 @@ import 'package:online_chat/view_model/people_tab_page_view_model.dart';
 import 'package:provider/provider.dart';
 import '../model/m_user.dart';
 import '../services/notification_service.dart';
+import 'chat_screen/style.dart';
 
 class PeopleTabPage extends StatefulWidget {
   final MUser gelenSessionOwner;
@@ -105,69 +106,73 @@ class _PeopleTabPageState extends State<PeopleTabPage> {
     List<MUser> allUserList =
         Provider.of<PeopleTabPageViewModel>(context).allUserList;
     return Scaffold(
-      appBar: AppBar(
-        title: Text('People'),
-      ),
-      body: Column(
+      backgroundColor: Color(0xff5b61b9),
+      body: ListView(
         children: [
-          Expanded(
-            child: ListView.builder(
-              controller: _scrollController,
-              itemCount: allUserList.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(vertical: 17),
-                  child: Card(
-                    color: Colors.white,
-                    elevation: 3,
-                    child: ListTile(
-                      onTap: () {
-                        Navigator.of(context, rootNavigator: true)
-                            .push(MaterialPageRoute(
-                                builder: (context) => WriteMessagePage(
-                                      receiverUser: allUserList[index],
-                                      sessionOwner: widget.gelenSessionOwner,
-                                    )));
-                      },
-                      title: Text("${allUserList[index].displayName}"),
-                      trailing: Icon(Icons.chevron_right),
-                      leading:  CircleAvatar(
-                        child: CachedNetworkImage(
-                          imageUrl: allUserList[index].photoUrl!,
-                          imageBuilder:
-                              (context, imageProvider) =>
-                              Container(
-                                decoration: BoxDecoration(
-                                  //border: Border.all(width: 2,color: Colors.grey),
-                                  borderRadius:
-                                  BorderRadius.circular(10),
-                                  image: DecorationImage(
-                                    image: imageProvider,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                          placeholder: (context, url) =>
-                          const Center(child: CircularProgressIndicator()),
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
-                        ),
-                      ),
-                      // leading:CircleAvatar(
-                      //
-                      //     child: Image.network("${allUserList[index].photoUrl}")),
-                    ),
-                  ),
-                );
-              },
+          Container(
+            padding: EdgeInsets.only(top: 30, left: 40),
+            height: 100,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                PrimaryText(
+                  text: 'People',
+                  fontSize: 32,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w900,
+                ),
+              ],
             ),
           ),
-          if (Provider.of<PeopleTabPageViewModel>(context).isLoadMoreRunning ==
-              true)
-            Padding(
-              padding: const EdgeInsets.only(top: 10, bottom: 40),
-              child: Center(child: CircularProgressIndicator()),
-            )
+          Container(
+            padding: EdgeInsets.only(top: 30, left: 20, right: 20),
+            height: MediaQuery.of(context).size.height - 100,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(40),
+                topRight: Radius.circular(40),
+              ),
+            ),
+            child: Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    controller: _scrollController,
+                    itemCount: allUserList.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 15, bottom: 15),
+                        child: ListTile(
+                          onTap: () {
+                            Navigator.of(context, rootNavigator: true)
+                                .push(MaterialPageRoute(
+                                    builder: (context) => WriteMessagePage(
+                                          receiverUser: allUserList[index],
+                                          sessionOwner:
+                                              widget.gelenSessionOwner,
+                                        )));
+                          },
+                         // title: Text("${allUserList[index].displayName}"),
+                          title:  PrimaryText(text: allUserList[index].displayName!, fontSize: 18),
+                          trailing: Icon(Icons.chevron_right),
+                          leading: Avatar(avatarUrl: allUserList[index].photoUrl!),
+
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                if (Provider.of<PeopleTabPageViewModel>(context)
+                        .isLoadMoreRunning ==
+                    true)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10, bottom: 40),
+                    child: Center(child: CircularProgressIndicator()),
+                  )
+              ],
+            ),
+          ),
         ],
       ),
       //_buildBody(allUserList, sessionOwner, pageStatus),

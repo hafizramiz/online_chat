@@ -186,7 +186,7 @@ class SignUpPage extends StatelessWidget {
                         children: [
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.purple,
+                                backgroundColor: Color(0xff5b61b9),
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 70, vertical: 20),
                                 textStyle: TextStyle(
@@ -296,7 +296,7 @@ class SignUpPage extends StatelessWidget {
                                 child: Text("Sign In",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w900,
-                                        color: Colors.deepPurpleAccent,
+                                        color: Color(0xff5b61b9),
                                         fontSize: 18)),
                               ),
                             ),

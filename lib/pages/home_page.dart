@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:online_chat/model/m_user.dart';
-import 'package:online_chat/pages/chat_screen/chat_screen.dart';
 import 'package:online_chat/pages/chat_tab_page.dart';
 import 'package:online_chat/pages/my_custom_nav_bar.dart';
 import 'package:online_chat/pages/people_tab_page.dart';
@@ -53,7 +52,6 @@ class _HomePageState extends State<HomePage> {
         var result =
             await navigatorKeys[_currentTab]?.currentState?.maybePop(context);
         var reverseResult = !result!;
-        print("anin degeri:${!result!}");
         return reverseResult;
       },
       child: MyCustomNavigationBar(

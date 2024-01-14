@@ -23,16 +23,16 @@ class _LoadingListPageState extends State<LoadingListPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             children: [
-              CustomCard(),
-              CustomCard(),
-              CustomCard(),
-              CustomCard(),
-              CustomCard(),
-              CustomCard(),
-              CustomCard(),
-              CustomCard(),
-              CustomCard(),
-              CustomCard(),
+              // CustomCard(),
+              // CustomCard(),
+              // CustomCard(),
+              // CustomCard(),
+              // CustomCard(),
+              // CustomCard(),
+              // CustomCard(),
+              // CustomCard(),
+              // CustomCard(),
+              // CustomCard(),
             ],
           ),
         ),
@@ -81,21 +81,3 @@ class BannerPlaceholder extends StatelessWidget {
   }
 }
 
-class BannerPlaceholder2 extends StatelessWidget {
-  const BannerPlaceholder2({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Card(
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
-      ),
-    );
-  }
-}
