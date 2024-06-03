@@ -58,6 +58,7 @@ class _PeopleTabPageState extends State<PeopleTabPage> {
         .saveTokenToDatabase(sessionOwnerParam: widget.gelenSessionOwner);
 
     _scrollController.addListener(loadMoreUsers);
+
     Provider.of<PeopleTabPageViewModel>(context, listen: false)
         .getInitalUsersAndSetToList(
             sessionOwnerParam: widget.gelenSessionOwner);

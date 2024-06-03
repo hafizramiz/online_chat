@@ -38,6 +38,7 @@ class NotificationService {
 
     final InitializationSettings initializationSettings =
         InitializationSettings(android: initializationSettingsAndroid);
+
     await flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
       onSelectNotification: (String? payload) async {
@@ -50,6 +51,7 @@ class NotificationService {
         );
         print("onSelectNotification Calisti");
       },
+
     );
     try {
       FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
